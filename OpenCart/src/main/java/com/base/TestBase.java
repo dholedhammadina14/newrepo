@@ -38,6 +38,13 @@ public class TestBase {
 	public static ExtentReports extent;
 	public static ExtentTest extentTest;
 	
+	public Logger pageLogs() {
+		log = Logger.getLogger(this.getClass());
+		String path = (System.getProperty("user.dir") + "/src/main/resources/log4j.properties");
+		PropertyConfigurator.configure(path);
+		return log;
+	}
+	
 	public String readProperty(String key) {
 		Properties prop=new Properties();
 		try {
@@ -55,18 +62,18 @@ public class TestBase {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 	public WebDriver initialization() {
-		log.info("initialising a browser with name "+readProperty("browser"));
+		pageLogs().info("initialising a browser with name "+readProperty("browser"));
 		if(readProperty("browser").equals("chrome")){
 		System.setProperty("webdriver.chrome.driver", "E:/chromedriver.exe");
 		driver=new ChromeDriver();
 		launchBrowser();
-		log.info("chrome browser initialised.");
+		pageLogs().info("chrome browser initialised.");
 		return driver;
 		}else {
 			System.setProperty("webdriver.gecko.driver", "E:\\chromedriver.exe");
 			driver=new FirefoxDriver();
 			launchBrowser();
-			log.info("firefox browser initialised.");
+			pageLogs().info("firefox browser initialised.");
 			return driver;
 		}
 	}
@@ -130,10 +137,5 @@ public class TestBase {
 	public void allPages() {
 		extentTest=extent.createTest("All Pages","All Pages Test Cases............");
 	}
-	public Logger pageLogs() {
-		log = Logger.getLogger(this.getClass());
-		String path = (System.getProperty("user.dir") + "/src/main/resources/log4j.properties");
-		PropertyConfigurator.configure(path);
-		return log;
-	}
+	
 }

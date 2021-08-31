@@ -7,4 +7,8 @@
       <class name="com.tests.AccountPinPageTest"/>
     </classes>
   </test> <!-- Test -->
+  <listeners>
+  <listener class-name="com.listeners.TestListeners"></listener>
+  <listener class-name="com.listeners.setRetryListener"></listener>
+  </listeners>
 </suite> <!-- Suite -->
